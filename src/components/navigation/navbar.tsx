@@ -12,7 +12,7 @@ export function Navbar() {
     return (
         <div className='p-4 px-2 flex flex-col gap-6'>
             <div className='flex flex-row w-full items-center justify-between'>
-                <h1>Logo</h1>
+                <h1 className='font-jakarta'>Girêh</h1>
 
                 <div className='gap-4 flex items-center justify-center'>
                     <Heart
@@ -47,16 +47,14 @@ function NavLink({ label }: NavLinkProps) {
     }
 
     return (
-        <div onClick={handleClick} className={`rounded text-zinc-800 
+        <button onClick={handleClick} className={`rounded text-zinc-800 
         flex flex-row items-center justify-center 
         text-sm w-full p-1 ${userLocation === label && 'bg-zinc-500/10 font-medium'} 
         ease-in-out duration-300
-        cursor-pointer
-        
-        `}>
+        cursor-pointer`}>
             <p>
                 {label}
             </p>
-        </div>
+        </button>
     );
 }
