@@ -1,12 +1,13 @@
 import React from 'react';
 import { ShoppingBag, Heart } from 'lucide-react';
 import { useAtom } from 'jotai';
-import { FavoritesOpenAtom, UserLocation, userLocationAtom } from '@/context/appContext';
+import { CartOpenAtom, FavoritesOpenAtom, UserLocation, userLocationAtom } from '@/context/appContext';
 
 const navLinks: UserLocation[] = ['Tudo', 'Feminino', 'Masculino', 'Infantil'];
 
 export function Navbar() {
-    const [open, setOpen] = useAtom(FavoritesOpenAtom);
+    const [, setFavoritesOpen] = useAtom(FavoritesOpenAtom);
+    const [, setCartOpenAtom] = useAtom(CartOpenAtom);
 
     return (
         <div className='p-4 px-2 flex flex-col gap-6'>
@@ -15,11 +16,14 @@ export function Navbar() {
 
                 <div className='gap-4 flex items-center justify-center'>
                     <Heart
-                        onClick={() => setOpen(true)}
+                        onClick={() => setFavoritesOpen(true)}
                         strokeWidth={1}
                     />
-                    <ShoppingBag strokeWidth={1} />
-                </div>
+                    <ShoppingBag
+                        onClick={() => setCartOpenAtom(true)}
+                        strokeWidth={1}
+                    />
+                </div> 
             </div>
 
             <div className='flex flex-row items-center justify-between gap-2'>
