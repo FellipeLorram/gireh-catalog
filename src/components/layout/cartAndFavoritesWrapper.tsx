@@ -1,7 +1,6 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { PrimitiveAtom, useAtom } from 'jotai';
-import { FavoritesOpenAtom } from '@/context/appContext';
 
 const BackDropVariants = {
     hidden: {
@@ -39,7 +38,6 @@ interface Props {
     children: React.ReactNode;
     OpenAtom: PrimitiveAtom<Boolean>;
 }
-
 
 export function FavoritesAndCartLayoutWrapper({ children, OpenAtom }: Props) {
     const [open, setOpen] = useAtom(OpenAtom);

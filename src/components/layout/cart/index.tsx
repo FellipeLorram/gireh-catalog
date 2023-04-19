@@ -6,7 +6,10 @@ import { CartOpenAtom } from '@/context/appContext'
 
 const variants = {
   animate: {
-    rotate: [0, 10, 0, -10, 0]
+    rotate: [0, 10, 0, -10, 0],
+    transition: {
+      delay: 0.5,
+    }
   }
 }
 
