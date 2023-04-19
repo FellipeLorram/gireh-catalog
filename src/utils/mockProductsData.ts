@@ -12,5 +12,6 @@ export const MockProductsData: Product[] = [
         ],
         brand: 'Brand 1',
         category: 'Category 1',
+        material: 'Material 1',
     }
 ]

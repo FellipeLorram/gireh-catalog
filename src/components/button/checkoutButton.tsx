@@ -2,7 +2,7 @@ import React from 'react';
 import { useAtom } from 'jotai';
 import { AnimatePresence, motion } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
-import { CartOpenAtom } from '@/context/appContext'
+import { CartAtom, CartOpenAtom } from '@/context/appContext'
 
 const variants = {
     hidden: {
@@ -17,9 +17,11 @@ const variants = {
 
 export function CheckoutButton() {
     const [open] = useAtom(CartOpenAtom);
+    const [cart] = useAtom(CartAtom);
+
     return (
         <AnimatePresence>
-            {open && (
+            {cart.length > 0 && open && (
                 <motion.div
                     variants={variants}
                     initial='hidden'
