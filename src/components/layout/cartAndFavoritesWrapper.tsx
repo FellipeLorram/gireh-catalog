@@ -78,7 +78,7 @@ export function FavoritesAndCartLayoutWrapper({ children, OpenAtom }: Props) {
                         onClick={(e) => {
                             e.stopPropagation();
                         }}
-                        className='w-full h-full rounded-t-2xl bg-white-100 px-4 pb-8'
+                        className='w-full h-full rounded-t-2xl bg-white-100 px-4 pb-8 relative'
                     >
                         <div className='p-2 items-center justify-center flex w-full flex-col gap-2 '>
                             <div className='h-1.5 bg-zinc-400/70 w-28 rounded-lg' />

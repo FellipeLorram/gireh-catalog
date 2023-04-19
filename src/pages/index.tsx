@@ -14,12 +14,6 @@ export default function Home() {
       <Cart />
       <Navbar />
       <CardGrid />
-      <div className='fixed bottom-2 w-full flex justify-center'>
-        <button className='p-2 px-4 bg-zinc-800 text-md w-fit text-white-200 rounded-3xl flex items-center justify-center gap-2'>
-          <CheckCircle2 strokeWidth={1} size={18} className='stroke-white-200' />
-          Solicitar Atendimento
-        </button>
-      </div>
     </>
   )
 }
