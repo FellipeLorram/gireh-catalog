@@ -1,3 +1,4 @@
+import { CardGrid } from '@/components/layout/cardGrid'
 import { Cart } from '@/components/layout/cart'
 import { Favorites } from '@/components/layout/favorites'
 import { Navbar } from '@/components/navigation/navbar'
@@ -11,6 +12,7 @@ export default function Home() {
       <Favorites />
       <Cart />
       <Navbar />
+      <CardGrid />
     </>
   )
 }
