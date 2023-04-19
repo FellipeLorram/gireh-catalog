@@ -1,18 +1,23 @@
 import React from 'react';
 import { ShoppingBag, Heart } from 'lucide-react';
 import { useAtom } from 'jotai';
-import { UserLocation, userLocationAtom } from '@/context/appContext';
+import { FavoritesOpenAtom, UserLocation, userLocationAtom } from '@/context/appContext';
 
 const navLinks: UserLocation[] = ['Tudo', 'Feminino', 'Masculino', 'Infantil'];
 
 export function Navbar() {
+    const [open, setOpen] = useAtom(FavoritesOpenAtom);
+
     return (
         <div className='p-4 px-2 flex flex-col gap-6'>
             <div className='flex flex-row w-full items-center justify-between'>
                 <h1>Logo</h1>
 
                 <div className='gap-4 flex items-center justify-center'>
-                    <Heart strokeWidth={1} />
+                    <Heart
+                        onClick={() => setOpen(true)}
+                        strokeWidth={1}
+                    />
                     <ShoppingBag strokeWidth={1} />
                 </div>
             </div>
@@ -41,7 +46,7 @@ function NavLink({ label }: NavLinkProps) {
         <div onClick={handleClick} className={`rounded text-zinc-800 
         flex flex-row items-center justify-center 
         text-sm w-full p-1 ${userLocation === label && 'bg-zinc-500/10 font-medium'} 
-        ease-in-out duration-200 hover:bg-zinc-500/20
+        ease-in-out duration-300
         cursor-pointer
         
         `}>
