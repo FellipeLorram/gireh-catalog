@@ -1,3 +1,4 @@
+import { CheckoutButton } from '@/components/button/checkoutButton'
 import { CardGrid } from '@/components/layout/cardGrid'
 import { Cart } from '@/components/layout/cart'
 import { Favorites } from '@/components/layout/favorites'
@@ -12,6 +13,7 @@ export default function Home() {
     <>
       <Favorites />
       <Cart />
+      <CheckoutButton />
       <Navbar />
       <CardGrid />
     </>
