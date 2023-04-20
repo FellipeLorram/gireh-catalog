@@ -8,3 +8,4 @@ export const userLocationAtom = atom<UserLocation>('Tudo');
 export const FavoritesOpenAtom = atom<Boolean>(false);
 export const CartOpenAtom = atom<Boolean>(false);
 export const CartAtom = atom<Product[]>([]);
+export const FavoritesAtom = atom<Product[]>([]);

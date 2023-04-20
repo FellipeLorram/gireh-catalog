@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import Image from 'next/image';
 import { Product } from '@/lib/entities/product';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
+import { FavoritesAtom } from '@/context/appContext';
+import { useAtom } from 'jotai';
 
 interface CardProps {
     product: Product;
@@ -14,18 +16,34 @@ const swipePower = (offset: number, velocity: number) => {
 };
 
 export function Card({ product: {
+    id,
     name,
     images,
-    description
+    description,
+    ...props
 } }: CardProps) {
     const [imageTranslationX, setImageTranslationX] = useState(49);
+    const [favorites, setFavorites] = useAtom(FavoritesAtom);
 
     const paginate = (newDirection: number) => {
         setImageTranslationX(newDirection);
     };
 
+    const isFavorite = favorites.findIndex((product) => product.id === id) !== -1;
+
+    function handleHeartIconClick() {
+        setFavorites((prev) => {
+            const index = prev.findIndex((product) => product.id === id);
+            if (index === -1) {
+                return [...prev, { name, images, description, id, ...props }]
+            } else {
+                return prev.filter((_, i) => i !== index)
+            }
+        })
+    }
+
     return (
-        <div className='w-full flex flex-col items-start overflow-hidden gap-0.5'>
+        <div className='w-full flex flex-col items-start overflow-hidden gap-1'>
             <motion.div
                 className='w-full'
                 drag="x"
@@ -69,11 +87,20 @@ export function Card({ product: {
                 </div>
             </motion.div>
 
-            <div className='w-full flex justify-between items-center gap-2'>
+            <div className='w-full flex justify-between items-center gap-3'>
                 <h2 className='text-sm flex-1'>
                     {name}
                 </h2>
-                <Heart className='stroke-zinc-700' size={20} strokeWidth={1} />
+                <Heart
+                    onClick={handleHeartIconClick}
+                    fill={`${isFavorite ? '#b91c1c' : '#FFF'}`}
+                    className={`
+                    duration-200 ease-in-out
+                    ${isFavorite ? 'stroke-red-600' : 'stroke-zinc-700'}
+                    `}
+                    size={20}
+                    strokeWidth={1}
+                />
                 <svg xmlns="http://www.w3.org/2000/svg" className='stroke-zinc-700' width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <circle cx="6" cy="19" r="2" />

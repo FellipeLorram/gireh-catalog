@@ -4,7 +4,7 @@ export const MockProductsData: Product[] = [
     {
         id: '1',
         name: 'Ana Hickmann',
-        description: 'Ana Hickmann',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos molestias obcaecati pariatur! Eligendi, totam nesciunt id possimus, fugit molestias incidunt assumenda, a quos ipsa quia! Exercitationem voluptate voluptatem illum magnam!',
         price: 100,
         images: [
             '/images/fridon_1.jpg',
@@ -12,7 +12,7 @@ export const MockProductsData: Product[] = [
         ],
         brand: 'Brand 1',
         category: 'Category 1',
-        material: 'Material 1',
+        material: 'Acetato',
     },
     {
         id: '2',
