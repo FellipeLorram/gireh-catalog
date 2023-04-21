@@ -67,8 +67,6 @@ export function FavoritesAndCartLayoutWrapper({ children, OpenAtom }: Props) {
                         dragConstraints={{ top: 0, bottom: 50 }}
                         onDragEnd={(e, { offset, velocity }) => {
                             const swipe = swipePower(offset.y, velocity.y);
-                            console.log(swipe)
-                            console.log(swipeConfidenceThreshold)
                             if (swipe > swipeConfidenceThreshold) {
                                 setOpen(false);
                             }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Heart } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useAtom } from 'jotai'
@@ -7,7 +7,21 @@ import { FavoritesAtom, FavoritesOpenAtom } from '@/context/appContext'
 import { FavoritesItem } from './favoritesItem'
 
 export function Favorites() {
-    const [favorites] = useAtom(FavoritesAtom)
+    const [favorites, setFavorites] = useAtom(FavoritesAtom);
+    const [unFavoritesIds, setUnFavoritesIds] = React.useState<string[]>([]);
+    const [FavoritesOpen] = useAtom(FavoritesOpenAtom);
+
+    useEffect(() => {
+        if(!FavoritesOpen) {
+            if (unFavoritesIds.length > 0) {
+                setFavorites((prev) =>
+                    prev.filter((item) => !unFavoritesIds.includes(item.id))
+                );
+                setUnFavoritesIds([]);
+            }
+        }
+    }, [FavoritesOpen]);
+
     return (
         <FavoritesAndCartLayoutWrapper
             OpenAtom={FavoritesOpenAtom}
@@ -20,7 +34,11 @@ export function Favorites() {
             {favorites.length > 0 ? (
                 <div className='flex w-full flex-col items-center justify-center gap-4 mt-4'>
                     {favorites.map((product) => (
-                        <FavoritesItem key={product.id} product={product} />
+                        <FavoritesItem
+                            setUnFavoritesIds={setUnFavoritesIds}
+                            key={product.id}
+                            product={product}
+                        />
                     ))}
                 </div>
             ) : (
