@@ -1,3 +1,4 @@
+import { CartPlus } from '@/components/icons/cartPlus';
 import { FavoritesAtom } from '@/context/appContext';
 import { Product } from '@/lib/entities/product'
 import { useAtom } from 'jotai';
@@ -32,7 +33,7 @@ export function FavoritesItem({
     }
 
     return (
-        <div className='w-full flex flex-row gap-2 items-start justify-start'>
+        <div className='w-full flex flex-row gap-3 items-start justify-start'>
             <Image
                 key={images[0]}
                 width={3024}
@@ -43,12 +44,12 @@ export function FavoritesItem({
                 alt={description}
                 className='max-w-[100px] max-h-[100px]'
             />
-            <div className='flex flex-col flex-1 items-start justify-start gap-1'>
+            <div className='flex flex-col flex-1 items-start justify-start gap-1 pr-1'>
                 <h1 className='text-md font-medium'>{name}</h1>
                 <p className='text-xs text-zinc-700'>Armação em {props.material}</p>
                 <p className='text-xs text-zinc-700'>{`${description.split(' ').slice(0, 10).join(' ')}...`}</p>
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col gap-3'>
                 <Heart
                     onClick={handleHeartIconClick}
                     fill={isFavorite ? '#b91c1c' : '#fff'}

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { SetStateAction, useState } from 'react'
 import Image from 'next/image';
 import { Product } from '@/lib/entities/product';
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
-import { FavoritesAtom } from '@/context/appContext';
-import { useAtom } from 'jotai';
+import { CartAtom, FavoritesAtom } from '@/context/appContext';
+import { useAtom, } from 'jotai';
+import { CartPlus } from '@/components/icons/cartPlus';
 
 interface CardProps {
     product: Product;
@@ -22,8 +23,9 @@ export function Card({ product: {
     description,
     ...props
 } }: CardProps) {
-    const [imageTranslationX, setImageTranslationX] = useState(49);
+    const [imageTranslationX, setImageTranslationX] = useState(49.99);
     const [favorites, setFavorites] = useAtom(FavoritesAtom);
+    const [cartItems, setCartItems] = useAtom(CartAtom);
 
     const paginate = (newDirection: number) => {
         setImageTranslationX(newDirection);
@@ -31,8 +33,8 @@ export function Card({ product: {
 
     const isFavorite = favorites.findIndex((product) => product.id === id) !== -1;
 
-    function handleHeartIconClick() {
-        setFavorites((prev) => {
+    function handleIconClick(setterFunction: (args_0: SetStateAction<Product[]>) => void) {
+        setterFunction((prev) => {
             const index = prev.findIndex((product) => product.id === id);
             if (index === -1) {
                 return [...prev, { name, images, description, id, ...props }]
@@ -92,7 +94,7 @@ export function Card({ product: {
                     {name}
                 </h2>
                 <Heart
-                    onClick={handleHeartIconClick}
+                    onClick={() => handleIconClick(setFavorites)}
                     fill={`${isFavorite ? '#b91c1c' : '#FFF'}`}
                     className={`
                     duration-200 ease-in-out
@@ -101,14 +103,9 @@ export function Card({ product: {
                     size={20}
                     strokeWidth={1}
                 />
-                <svg xmlns="http://www.w3.org/2000/svg" className='stroke-zinc-700' width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <circle cx="6" cy="19" r="2" />
-                    <circle cx="17" cy="19" r="2" />
-                    <path d="M17 17h-11v-14h-2" />
-                    <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-                    <path d="M15 6h6m-3 -3v6" />
-                </svg>
+                <CartPlus
+                    onClick={() => handleIconClick(setCartItems)}
+                />
             </div>
         </div>
     )

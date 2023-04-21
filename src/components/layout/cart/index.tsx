@@ -2,7 +2,8 @@ import React from 'react'
 import { ShoppingBag, ShoppingCart } from 'lucide-react'
 import { motion } from 'framer-motion';
 import { FavoritesAndCartLayoutWrapper } from '../cartAndFavoritesWrapper'
-import { CartOpenAtom } from '@/context/appContext'
+import { CartAtom, CartOpenAtom } from '@/context/appContext'
+import { useAtom } from 'jotai';
 
 const variants = {
   animate: {
@@ -14,6 +15,7 @@ const variants = {
 }
 
 export function Cart() {
+  const [cartItems] = useAtom(CartAtom);
   return (
     <FavoritesAndCartLayoutWrapper
       OpenAtom={CartOpenAtom}
@@ -24,17 +26,27 @@ export function Cart() {
           <h1 className='text-zinc-600'>Carrinho</h1>
         </div>
 
-        <div className='flex flex-col gap-2 items-center justify-center mt-24'>
-          <motion.div
-            variants={variants}
-          >
-            <ShoppingCart strokeWidth={1} size={36} className='stroke-zinc-400' />
-          </motion.div>
-          <p className='text-zinc-600'>
-            Seu carrinho ainda está vazio.
-          </p>
-        </div>
-      </div>
+        {cartItems.length > 0 ? (
+          <></>
+        ) : (
+          <EmptyCart />
+        )}
+      </div >
     </FavoritesAndCartLayoutWrapper>
+  )
+}
+
+function EmptyCart() {
+  return (
+    <div className='flex flex-col gap-2 items-center justify-center mt-24'>
+      <motion.div
+        variants={variants}
+      >
+        <ShoppingCart strokeWidth={1} size={36} className='stroke-zinc-400' />
+      </motion.div>
+      <p className='text-zinc-600'>
+        Seu carrinho ainda está vazio.
+      </p>
+    </div>
   )
 }

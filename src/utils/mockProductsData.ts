@@ -17,7 +17,7 @@ export const MockProductsData: Product[] = [
     {
         id: '2',
         name: 'Dulcet',
-        description: 'Product 2 description',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos molestias obcaecati pariatur! Eligendi, totam nesciunt id possimus, fugit molestias incidunt assumenda, a quos ipsa quia! Exercitationem voluptate voluptatem illum magnam!',
         price: 200,
         images: [
             '/images/fridon_3.jpg',
@@ -30,7 +30,7 @@ export const MockProductsData: Product[] = [
     {
         id: '3',
         name: 'Gucci',
-        description: 'Product 3 description',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos molestias obcaecati pariatur! Eligendi, totam nesciunt id possimus, fugit molestias incidunt assumenda, a quos ipsa quia! Exercitationem voluptate voluptatem illum magnam!',
         price: 300,
         images: [
             '/images/fridon_5.jpg',
@@ -43,7 +43,7 @@ export const MockProductsData: Product[] = [
     {
         id: '4',
         name: 'Ray Ban',
-        description: 'Product 4 description',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos molestias obcaecati pariatur! Eligendi, totam nesciunt id possimus, fugit molestias incidunt assumenda, a quos ipsa quia! Exercitationem voluptate voluptatem illum magnam!',
         price: 400,
         images: [
             '/images/fridon_7.jpg',

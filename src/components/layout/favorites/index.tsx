@@ -12,7 +12,7 @@ export function Favorites() {
     const [FavoritesOpen] = useAtom(FavoritesOpenAtom);
 
     useEffect(() => {
-        if(!FavoritesOpen) {
+        if (!FavoritesOpen) {
             if (unFavoritesIds.length > 0) {
                 setFavorites((prev) =>
                     prev.filter((item) => !unFavoritesIds.includes(item.id))
@@ -28,7 +28,12 @@ export function Favorites() {
         >
             <div className='flex w-full flex-row gap-2 items-center justify-start mt-8 pb-2 border-b border-zinc-200'>
                 <Heart strokeWidth={1} size={18} className='stroke-zinc-600' />
-                <h1 className='text-zinc-600'>Favoritos</h1>
+                <h1 className='text-zinc-600 flex-1'>Favoritos</h1>
+                {favorites.length > 0 && (
+                    <p className='text-zinc-600'>
+                        {favorites.length}
+                    </p>
+                )}
             </div>
 
             {favorites.length > 0 ? (
