@@ -1,4 +1,4 @@
-import { CheckoutButton } from '@/components/button/checkoutButton'
+import { CheckoutButton } from '@/components/buttons/checkoutButton'
 import { CardGrid } from '@/components/layout/cardGrid'
 import { Cart } from '@/components/layout/cart'
 import { Favorites } from '@/components/layout/favorites'

@@ -7,7 +7,7 @@ export function CartPlus({ ...props }: Props) {
         <svg
             {...props}
             xmlns="http://www.w3.org/2000/svg"
-            className='stroke-zinc-700'
+            className={props.className}
             width="20"
             height="20"
             viewBox="0 0 24 24"

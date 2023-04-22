@@ -32,14 +32,15 @@ export function Card({ product: {
     };
 
     const isFavorite = favorites.findIndex((product) => product.id === id) !== -1;
+    const isInCart = cartItems.findIndex((product) => product.id === id) !== -1;
 
-    function handleIconClick(setterFunction: (args_0: SetStateAction<Product[]>) => void) {
-        setterFunction((prev) => {
+    function handleFavoritesIconClick() {
+        setFavorites((prev) => {
             const index = prev.findIndex((product) => product.id === id);
             if (index === -1) {
-                return [...prev, { name, images, description, id, ...props }]
+                return [...prev, { name, images, description, id, ...props }];
             } else {
-                return prev.filter((_, i) => i !== index)
+                return prev.filter((_, i) => i !== index);
             }
         })
     }
@@ -94,18 +95,22 @@ export function Card({ product: {
                     {name}
                 </h2>
                 <Heart
-                    onClick={() => handleIconClick(setFavorites)}
+                    onClick={handleFavoritesIconClick}
                     fill={`${isFavorite ? '#b91c1c' : '#FFF'}`}
                     className={`
                     duration-200 ease-in-out
-                    ${isFavorite ? 'stroke-red-600' : 'stroke-zinc-700'}
+                    ${isFavorite ? 'stroke-red-600' : 'stroke-zinc-900'}
                     `}
                     size={20}
-                    strokeWidth={1}
+                    strokeWidth={2}
                 />
-                <CartPlus
-                    onClick={() => handleIconClick(setCartItems)}
-                />
+                <div className='relative'>
+                    {isInCart && <div className='h-2 w-2 rounded-full bg-red-500 right-0 top-0 absolute z-0'></div>}
+                    <CartPlus
+                        className='stroke-zinc-900 z-10'
+                        onClick={() => console.log('add to cart')}
+                    />
+                </div>
             </div>
         </div>
     )
