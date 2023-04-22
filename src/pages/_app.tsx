@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import { AnimatePresence } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import { Montserrat, Plus_Jakarta_Sans } from 'next/font/google'
 
@@ -15,7 +16,9 @@ const inter = Montserrat({
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <main className={`${inter.variable} ${jakarta.variable} font-sans`}>
-      <Component {...pageProps} />
+      <AnimatePresence mode='wait'>
+        <Component {...pageProps} />
+      </AnimatePresence>
     </main>
   )
 }

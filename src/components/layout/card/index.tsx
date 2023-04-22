@@ -90,7 +90,7 @@ export function Card({ product: {
                 </div>
             </motion.div>
 
-            <div className='w-full flex justify-between items-center gap-3'>
+            <div className='w-full flex justify-between items-center gap-2'>
                 <h2 className='text-sm flex-1'>
                     {name}
                 </h2>
@@ -102,7 +102,7 @@ export function Card({ product: {
                     ${isFavorite ? 'stroke-red-600' : 'stroke-zinc-900'}
                     `}
                     size={20}
-                    strokeWidth={2}
+                    strokeWidth={1}
                 />
                 <div className='relative'>
                     {isInCart && <div className='h-2 w-2 rounded-full bg-red-500 right-0 top-0 absolute z-0'></div>}

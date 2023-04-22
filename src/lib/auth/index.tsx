@@ -9,13 +9,7 @@ export function AuthState({ children }: { children: React.ReactNode }): JSX.Elem
         return <Loading />
     }
 
-
-    if (!user) {
-        return <LoginScreen />
-    }
-
-
     return <>
-        {children}
+        {!user ? <LoginScreen /> : children}
     </>;
 }
