@@ -1,7 +1,7 @@
 {
     "theme_color": "#e4e4e7",
     "background_color": "#e4e4e7",
-    "display": "browser",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "Gir\u00eah",
