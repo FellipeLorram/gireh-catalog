@@ -13,8 +13,10 @@ export const MockProductsData: Product[] = [
         brand: 'Brand 1',
         category: 'Category 1',
         material: 'Acetato',
-        isAvailable: true,
+        isAvailable: 'available',
         reference: '123456789',
+        supplier: '',
+        internalDescription: ''
     },
     {
         id: '2',
@@ -28,8 +30,10 @@ export const MockProductsData: Product[] = [
         brand: 'Brand 2',
         category: 'Category 2',
         material: 'Material 2',
-        isAvailable: true,
+        isAvailable: 'available',
         reference: '6856236',
+        supplier: '',
+        internalDescription: ''
     },
     {
         id: '3',
@@ -43,8 +47,10 @@ export const MockProductsData: Product[] = [
         brand: 'Brand 3',
         category: 'Category 3',
         material: 'Material 3',
-        isAvailable: true,
+        isAvailable: 'available',
         reference: '8798',
+        supplier: '',
+        internalDescription: ''
     },
     {
         id: '4',
@@ -58,7 +64,9 @@ export const MockProductsData: Product[] = [
         brand: 'Brand 4',
         category: 'Category 4',
         material: 'Material 4',
-        isAvailable: false,
+        isAvailable: 'unavailable',
         reference: '56465',
+        supplier: '',
+        internalDescription: ''
     },
 ]
