@@ -1,11 +1,14 @@
 export interface Product {
     id: string;
     name: string;
-    price: number;
     description: string;
-    images: string[];
     category: string;
+    reference: string;
     brand: string;
     material: string;
-    isAvailable: boolean;
+    price: number;
+    isAvailable: 'available' | 'unavailable';
+    images: string[];
+    internalDescription?: string;
+    supplier: string;
 }

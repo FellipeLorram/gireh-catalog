@@ -17,5 +17,5 @@ export default function Home() {
       <Navbar />
       <CardGrid products={MockProductsData} />
     </>
-  )
+  );
 }

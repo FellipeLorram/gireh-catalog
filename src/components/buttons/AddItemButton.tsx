@@ -29,7 +29,7 @@ export function AddItemButton({ isVisible }: Props) {
                 >
                     <Link href='/admin/add-item'>
                         <button className='p-2 px-4 bg-zinc-950 text-md w-fit text-white-100 rounded-3xl flex items-center justify-center gap-2'>
-                            <PlusCircle strokeWidth={1} size={18} className='stroke-white-100' />
+                            <PlusCircle strokeWidth={1} size={20} className='stroke-white-100' />
                             Adicionar Item
                         </button>
                     </Link>

@@ -14,6 +14,7 @@ export const MockProductsData: Product[] = [
         category: 'Category 1',
         material: 'Acetato',
         isAvailable: true,
+        reference: '123456789',
     },
     {
         id: '2',
@@ -28,6 +29,7 @@ export const MockProductsData: Product[] = [
         category: 'Category 2',
         material: 'Material 2',
         isAvailable: true,
+        reference: '6856236',
     },
     {
         id: '3',
@@ -42,6 +44,7 @@ export const MockProductsData: Product[] = [
         category: 'Category 3',
         material: 'Material 3',
         isAvailable: true,
+        reference: '8798',
     },
     {
         id: '4',
@@ -56,5 +59,6 @@ export const MockProductsData: Product[] = [
         category: 'Category 4',
         material: 'Material 4',
         isAvailable: false,
+        reference: '56465',
     },
 ]

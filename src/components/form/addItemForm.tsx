@@ -1,34 +1,41 @@
 import React from 'react';
-import { z } from 'zod';
+import { array, z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from './controllers/input';
 import { Button } from '../buttons/button';
-import { loginUser } from '@/lib/auth/loginUser';
 
-const loginFormSchema = z.object({
-    email: z.string().email('E-mail inválido'),
-    password: z.string().min(6, 'Senha inválida'),
+const addItemFormSchema = z.object({
+    name: z.string().nonempty('Nome inválido'),
+    price: z.string().transform((value) => Number(value)),
+    description: z.string().nonempty('Descrição inválida'),
+    images: z.array(z.instanceof(File)),
+    category: z.string().nonempty('Categoria inválida'),
+    brand: z.string().nonempty('Marca inválida'),
+    material: z.string().nonempty('Material inválido'),
+    isAvailable: z.string().default('available'),
+    reference: z.string().nonempty('Referencia inválida'),
 });
 
-type FormFields = z.infer<typeof loginFormSchema>;
+type FormFields = z.infer<typeof addItemFormSchema>;
 
-export function LoginForm() {
+export function AddItemForm() {
     const {
         register,
         handleSubmit,
         setError,
-        formState: { errors }
+        setValue,
+        formState: { errors },
     } = useForm<FormFields>({
-        resolver: zodResolver(loginFormSchema)
+        resolver: zodResolver(addItemFormSchema)
     });
 
-    async function onSubmit({ email, password }: FormFields) {
-        const user = await loginUser({ email, password });
-        if (!user) {
-            setError('email', { message: 'Usuário ou senha inválidos' });
-            return;
-        };
+    function setImagesValues(images: File[]) {
+        setValue('images', images);
+    }
+
+    async function onSubmit({ images }: FormFields) {
+        console.log(images)
     }
 
     return (
@@ -37,29 +44,115 @@ export function LoginForm() {
             className='w-full flex items-start justify-center flex-col gap-4 p-4'
         >
             <Input.Wrapper>
-                <Input.Label label='E-mail' />
-                <Input.Input
-                    {...register('email')}
-                    placeholder='seu@email.com'
-                    type='email'
-                    error={errors.email?.message}
+                <Input.Label label='Imagens' />
+                <Input.File
+                    {...register('images')}
+                    setValue={setImagesValues}
+                    multiple
+                    error={errors.images?.message as string}
                 />
-                <Input.Error message={errors.email?.message} />
+                <Input.Error message={errors.images?.message as string} />
             </Input.Wrapper>
 
             <Input.Wrapper>
-                <Input.Label label='Senha' />
-                <Input.Input
-                    {...register('password')}
-                    placeholder='•••••••'
-                    type='password'
-                    error={errors.password?.message}
-                />
-                <Input.Error message={errors.password?.message} />
+                <Input.Label label='Nome'>
+                    <Input.Input
+                        {...register('name')}
+                        type='text'
+                        error={errors.name?.message}
+                    />
+                </Input.Label>
 
+                <Input.Error message={errors.name?.message} />
             </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Descrição'>
+                    <Input.TextArea
+                        {...register('description')}
+                        error={errors.description?.message}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.description?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Categoria'>
+                    <Input.Select
+                        {...register('category')}
+                        options={[
+                            { label: 'Feminino', value: 'fem' },
+                            { label: 'Masculino', value: 'masc' },
+                        ]}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.category?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Referência'>
+                    <Input.Input
+                        {...register('reference')}
+                        error={errors.reference?.message}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.reference?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Marca'>
+                    <Input.Input
+                        {...register('brand')}
+                        error={errors.brand?.message}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.brand?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Material'>
+                    <Input.Input
+                        {...register('material')}
+                        error={errors.material?.message}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.material?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Preço'>
+                    <Input.Input
+                        type='number'
+                        {...register('price')}
+                        error={errors.price?.message}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.price?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Categoria'>
+                    <Input.Select
+                        {...register('isAvailable')}
+                        options={[
+                            { label: 'Disonível', value: 'available' },
+                            { label: 'Não Disponível', value: 'unavailable' },
+                        ]}
+                        error={errors.isAvailable?.message}
+
+                    />
+                </Input.Label>
+                <Input.Error message={errors.isAvailable?.message} />
+            </Input.Wrapper>
+
             <Button className='w-full'>
-                Entrar
+                Adicionar
             </Button>
         </form>
     )
