@@ -1,9 +1,12 @@
 import React from 'react';
-import { array, z } from 'zod';
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from './controllers/input';
 import { Button } from '../buttons/button';
+import { addDoc, collection, updateDoc } from 'firebase/firestore';
+import { database, storage } from '@/lib/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const addItemFormSchema = z.object({
     name: z.string().nonempty('Nome inválido'),
@@ -15,6 +18,11 @@ const addItemFormSchema = z.object({
     material: z.string().nonempty('Material inválido'),
     isAvailable: z.string().default('available'),
     reference: z.string().nonempty('Referencia inválida'),
+    bridge: z.string().nonempty('Ponte inválida'),
+    horizontal: z.string().nonempty('Horizontal inválida'),
+    vertical: z.string().nonempty('Vertical inválida'),
+    internalDescription: z.string().nullable(),
+    supplier: z.string().nonempty('Fornecedor inválido'),
 });
 
 type FormFields = z.infer<typeof addItemFormSchema>;
@@ -34,8 +42,30 @@ export function AddItemForm() {
         setValue('images', images);
     }
 
-    async function onSubmit({ images }: FormFields) {
-        console.log(images)
+    async function onSubmit({ images, ...data }: FormFields) {
+        const docRef = await addDoc(collection(database, 'products'), {
+            ...data,
+            createdAt: new Date().getTime(),
+        });
+
+        const imagesDownloadURL: string[] = [];
+
+        const storageRef = ref(storage, `products/frames/${docRef.id}`);
+
+        const imageRefs = images.map((image) => {
+            return ref(storageRef, `/${image.name}`);
+        });
+
+
+        const uploadPromises = images.map(async (image, index) => {
+            const uploadResult = await uploadBytes(imageRefs[index], image);
+            const downloadURL = await getDownloadURL(uploadResult.ref);
+            return downloadURL;
+        });
+
+        imagesDownloadURL.push(...await Promise.all(uploadPromises));
+
+        await updateDoc(docRef, { images: imagesDownloadURL });
     }
 
     return (
@@ -46,6 +76,7 @@ export function AddItemForm() {
             <Input.Wrapper>
                 <Input.Label label='Imagens' />
                 <Input.File
+                    accept="image/x-png,image/gif,image/jpeg"
                     {...register('images')}
                     setValue={setImagesValues}
                     multiple
@@ -137,7 +168,7 @@ export function AddItemForm() {
             </Input.Wrapper>
 
             <Input.Wrapper>
-                <Input.Label label='Categoria'>
+                <Input.Label label='Disponibilidade'>
                     <Input.Select
                         {...register('isAvailable')}
                         options={[
@@ -149,6 +180,72 @@ export function AddItemForm() {
                     />
                 </Input.Label>
                 <Input.Error message={errors.isAvailable?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Horizontal'>
+                    <Input.Input
+                        type='number'
+                        {...register('horizontal')}
+                        error={errors.horizontal?.message}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.horizontal?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Vertical'>
+                    <Input.Input
+                        type='number'
+                        {...register('vertical')}
+                        error={errors.vertical?.message}
+                    />
+                </Input.Label>
+                <Input.Error message={errors.vertical?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Ponte'>
+                    <Input.Input
+                        type='number'
+                        {...register('bridge')}
+                        error={errors.bridge?.message}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.bridge?.message} />
+            </Input.Wrapper>
+
+            <div className='w-full flex items-center justify-center gap-4 flex-row'>
+                <div className='w-1/3 h-0.5 bg-zinc-300' />
+                <div className='w-full'>
+                    <p className='text-md text-zinc-600'>Informações internas</p>
+                </div>
+                <div className='w-1/3 h-0.5 bg-zinc-300' />
+            </div>
+
+            <Input.Wrapper>
+                <Input.Label label='Descrição'>
+                    <Input.TextArea
+                        {...register('internalDescription')}
+                        error={errors.supplier?.message}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.supplier?.message} />
+            </Input.Wrapper>
+
+            <Input.Wrapper>
+                <Input.Label label='Fornecedor'>
+                    <Input.Input
+                        type='text'
+                        {...register('supplier')}
+                        error={errors.supplier?.message}
+                    />
+                </Input.Label>
+
+                <Input.Error message={errors.supplier?.message} />
             </Input.Wrapper>
 
             <Button className='w-full'>

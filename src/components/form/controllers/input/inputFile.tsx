@@ -16,7 +16,7 @@ export const InputFileComponent = forwardRef<HTMLInputElement, Props>(({
     ...props
 },
     ref) => {
-    const [fileNames, setFileNames] = useState<string[] | null>(null);
+    const [fileNames, setFileNames] = useState<string[] | []>([]);
     const labelRef = useRef<HTMLLabelElement>(null);
 
     function onChangeHandle(e: React.ChangeEvent<HTMLInputElement>) {
@@ -59,7 +59,7 @@ export const InputFileComponent = forwardRef<HTMLInputElement, Props>(({
                 </Button>
             </label>
 
-            {fileNames && (
+            {fileNames?.length > 0 && (
                 <div className='flex w-full flex-col items-center justify-center gap-1.5 py-1.5'>
                     {fileNames?.map((fileName) => (
                         <div key={fileName} className='w-full flex flex-row items-center justify-between border border-zinc-500 rounded p-1.5'>

@@ -16,7 +16,12 @@ export const MockProductsData: Product[] = [
         isAvailable: 'available',
         reference: '123456789',
         supplier: '',
-        internalDescription: ''
+        internalDescription: '',
+        measurements: {
+            bridge: 20,
+            horizontal: 50,
+            vertical: 30,
+        }
     },
     {
         id: '2',
@@ -33,7 +38,12 @@ export const MockProductsData: Product[] = [
         isAvailable: 'available',
         reference: '6856236',
         supplier: '',
-        internalDescription: ''
+        internalDescription: '',
+        measurements: {
+            bridge: 20,
+            horizontal: 56,
+            vertical: 45,
+        }
     },
     {
         id: '3',
@@ -50,7 +60,12 @@ export const MockProductsData: Product[] = [
         isAvailable: 'available',
         reference: '8798',
         supplier: '',
-        internalDescription: ''
+        internalDescription: '',
+        measurements: {
+            bridge: 20,
+            horizontal: 56,
+            vertical: 45,
+        }
     },
     {
         id: '4',
@@ -67,6 +82,11 @@ export const MockProductsData: Product[] = [
         isAvailable: 'unavailable',
         reference: '56465',
         supplier: '',
-        internalDescription: ''
+        internalDescription: '',
+        measurements: {
+            bridge: 20,
+            horizontal: 56,
+            vertical: 45,
+        }
     },
 ]

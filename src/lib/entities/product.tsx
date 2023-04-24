@@ -11,4 +11,9 @@ export interface Product {
     images: string[];
     internalDescription?: string;
     supplier: string;
+    measurements: {
+        horizontal: number;
+        vertical: number;
+        bridge: number;
+    };
 }
