@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from './controllers/input';
 import { Button } from '../buttons/button';
-import { addDoc, collection, updateDoc } from 'firebase/firestore';
-import { database, storage } from '@/lib/firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+interface Props {
+    onSubmit: (data: AddItemFormFields) => void;
+    defaultValues?: AddItemFormFields;
+    isLoading?: boolean;
+};
 
 const addItemFormSchema = z.object({
     name: z.string().nonempty('Nome inválido'),
-    price: z.string().transform((value) => Number(value)),
+    price: z
+        .union([z.string(), z.number()])
+        .transform((value) => {
+            if (typeof value === 'string') {
+                const numValue = Number(value);
+                if (!isNaN(numValue)) {
+                    return numValue;
+                }
+            }
+            return value;
+        }).refine((value): value is number => typeof value === 'number', {
+            message: 'Invalid price value',
+        }),
     description: z.string().nonempty('Descrição inválida'),
     images: z.array(z.instanceof(File)),
     category: z.string().nonempty('Categoria inválida'),
@@ -25,53 +40,33 @@ const addItemFormSchema = z.object({
     supplier: z.string().nonempty('Fornecedor inválido'),
 });
 
-type FormFields = z.infer<typeof addItemFormSchema>;
+export type AddItemFormFields = z.infer<typeof addItemFormSchema>;
 
-export function AddItemForm() {
+export function AddItemForm({ onSubmit, defaultValues, isLoading }: Props) {
     const {
         register,
         handleSubmit,
-        setError,
         setValue,
+        reset,
         formState: { errors },
-    } = useForm<FormFields>({
+    } = useForm<AddItemFormFields>({
         resolver: zodResolver(addItemFormSchema)
     });
+
+    useEffect(() => {
+        if (defaultValues) {
+            reset(defaultValues);
+        }
+    }, [defaultValues]);
 
     function setImagesValues(images: File[]) {
         setValue('images', images);
     }
 
-    async function onSubmit({ images, ...data }: FormFields) {
-        const docRef = await addDoc(collection(database, 'products'), {
-            ...data,
-            createdAt: new Date().getTime(),
-        });
-
-        const imagesDownloadURL: string[] = [];
-
-        const storageRef = ref(storage, `products/frames/${docRef.id}`);
-
-        const imageRefs = images.map((image) => {
-            return ref(storageRef, `/${image.name}`);
-        });
-
-
-        const uploadPromises = images.map(async (image, index) => {
-            const uploadResult = await uploadBytes(imageRefs[index], image);
-            const downloadURL = await getDownloadURL(uploadResult.ref);
-            return downloadURL;
-        });
-
-        imagesDownloadURL.push(...await Promise.all(uploadPromises));
-
-        await updateDoc(docRef, { images: imagesDownloadURL });
-    }
-
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className='w-full flex items-start justify-center flex-col gap-4 p-4'
+            className='w-full flex items-start justify-center flex-col gap-4 py-4'
         >
             <Input.Wrapper>
                 <Input.Label label='Imagens' />
@@ -218,11 +213,11 @@ export function AddItemForm() {
             </Input.Wrapper>
 
             <div className='w-full flex items-center justify-center gap-4 flex-row'>
-                <div className='w-1/3 h-0.5 bg-zinc-300' />
-                <div className='w-full'>
+                <div className='w-1/3 h-0.5 bg-zinc-300 md:w-full' />
+                <div className='w-full text-center'>
                     <p className='text-md text-zinc-600'>Informações internas</p>
                 </div>
-                <div className='w-1/3 h-0.5 bg-zinc-300' />
+                <div className='w-1/3 h-0.5 bg-zinc-300 md:w-full' />
             </div>
 
             <Input.Wrapper>
@@ -248,8 +243,8 @@ export function AddItemForm() {
                 <Input.Error message={errors.supplier?.message} />
             </Input.Wrapper>
 
-            <Button className='w-full'>
-                Adicionar
+            <Button loading={isLoading} className='w-full'>
+                {defaultValues ? 'Salvar alterações' : 'Adicionar'}
             </Button>
         </form>
     )

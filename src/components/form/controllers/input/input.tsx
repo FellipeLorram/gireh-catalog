@@ -19,4 +19,4 @@ export const InputComponent = forwardRef<HTMLInputElement, Props>(({ error, clas
     )
 });
 
-InputComponent.displayName = "Input";
+InputComponent.displayName = "Input"; 
