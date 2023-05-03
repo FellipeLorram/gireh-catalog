@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Gir\u00eah",
-    "short_name": "Gir\u00eah",
+    "name": "Gir\u00eah Catalog",
+    "short_name": "Gir\u00eah Catalog",
     "icons": [
         {
             "src": "/icon-192x192.png",
