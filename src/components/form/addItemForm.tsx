@@ -110,6 +110,7 @@ export function AddItemForm({ onSubmit, defaultValues, isLoading }: Props) {
                         options={[
                             { label: 'Feminino', value: 'fem' },
                             { label: 'Masculino', value: 'masc' },
+                            { label: 'Infantil', value: 'child' },
                         ]}
                     />
                 </Input.Label>

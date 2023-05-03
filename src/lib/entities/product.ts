@@ -2,12 +2,12 @@ export interface Product {
     id: string;
     name: string;
     description: string;
-    category: string;
+    category: 'fem' | 'masc' | 'child'
     reference: string;
     brand: string;
     material: string;
     price: number;
-    isAvailable: 'available' | 'unavailable';
+    isAvailable: 'available' | 'unavailable' | 'child';
     images: string[];
     internalDescription?: string;
     supplier: string;

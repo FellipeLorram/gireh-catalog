@@ -6,6 +6,8 @@ import { doc, getDoc } from 'firebase/firestore';
 import { database } from '@/lib/firebase';
 import { PackageOpen } from 'lucide-react';
 import Image from 'next/image';
+import { Button } from '@/components/buttons/button';
+import Link from 'next/link';
 
 export default function Item() {
   const [product, setProduct] = useState<Product>();
@@ -63,7 +65,7 @@ export default function Item() {
           </div>
         )}
       </div>
-      <div className='pb-4 w-full flex gap-1 items-start justify-start flex-col'>
+      <div className='pb-4 p-2 w-full flex gap-1 items-start justify-start flex-col'>
         <h1 className='text-zinc-900'>Descrição</h1>
         <p className='text-zinc-500'>{product?.description}</p>
 
@@ -96,6 +98,11 @@ export default function Item() {
         <h1 className='text-zinc-900 mt-3'>Descrição interna</h1>
         <p className='text-zinc-500'>{product?.internalDescription}</p>
       </div>
+      <Link href={`/admin/edit-item/${itemId}`}>
+        <Button className='w-full mb-2'>
+          Editar
+        </Button>
+      </Link>
     </PageWrapper>
   )
 }
