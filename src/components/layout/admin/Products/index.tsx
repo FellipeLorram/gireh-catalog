@@ -82,7 +82,7 @@ function ProductItem({ product }: { product: Product }) {
     <Link href={`/admin/items/${product.id}`}>
       <div className='w-full flex flex-row items-start justify-center gap-2 border border-zinc-300 rounded'>
         <div className='w-1/4 flex flex-col items-center justify-center p-1'>
-          <Image height={60} width={60} src={product.images[0]} alt={product.name} className='w-full' />
+          <Image height={3024} width={3024} src={product.images[0]} alt={product.name} className='w-full' />
         </div>
         <div className='w-3/4 flex flex-col items-start justify-center p-2'>
           <p className='text-zinc-800 font-medium text-md'>{product.name}</p>
