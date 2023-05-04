@@ -75,6 +75,7 @@ export const MockProductsData: Product[] = [
         images: [
             '/images/fridon_7.jpg',
             '/images/fridon_8.jpg',
+            '/images/fridon_8.jpg',
         ],
         brand: 'Brand 4',
         category: 'masc',
