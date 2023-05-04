@@ -3,9 +3,10 @@ import Image from 'next/image';
 import { Product } from '@/lib/entities/product';
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
-import { CartAtom, FavoritesAtom } from '@/context/appContext';
+import { CartAtom, FavoritesAtom, ItemPreviewOpenAtom } from '@/context/appContext';
 import { useAtom, } from 'jotai';
 import { CartPlus } from '@/components/icons/cartPlus';
+import ItemPreview from '../itemPreview';
 
 interface CardProps {
     product: Product;
@@ -24,8 +25,9 @@ export function Card({ product: {
     ...props
 } }: CardProps) {
     const [imageTranslationX, setImageTranslationX] = useState(49.99);
-    const [imagesCard, setImagesCard] = useState(images.slice(0, 2));
+    const [imagesCard] = useState(images.slice(0, 2));
     const [imageIndicator, setImageIndicator] = useState(0);
+    const [itemPreviewOpen, setItemPreviewOpen] = useAtom(ItemPreviewOpenAtom);
 
     const [favorites, setFavorites] = useAtom(FavoritesAtom);
     const [cartItems, setCartItems] = useAtom(CartAtom);
@@ -52,7 +54,6 @@ export function Card({ product: {
     return (
         <div className='w-full flex flex-col items-start overflow-hidden gap-1'>
             <div className='w-full'>
-
                 <motion.div
                     className='w-full relative'
                     drag="x"
@@ -91,7 +92,6 @@ export function Card({ product: {
                                 blurDataURL='/images/placeholder-card-image.png'
                                 placeholder='blur'
                                 alt={description}
-
                             />
                         ))}
                     </div>
@@ -126,7 +126,7 @@ export function Card({ product: {
                     {isInCart && <div className='h-2 w-2 rounded-full bg-red-500 right-0 top-0 absolute z-0'></div>}
                     <CartPlus
                         className='stroke-zinc-900 z-10'
-                        onClick={() => console.log('add to cart')}
+                        onClick={() => setItemPreviewOpen(true)}
                     />
                 </div>
             </div>
