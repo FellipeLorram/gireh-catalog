@@ -136,7 +136,7 @@ export function Card({ product: {
 
 function ImageIndicator({ index, currentIndex }: { index: number, currentIndex: number }) {
     return (
-        <div className={`${index === currentIndex ? 'w-2 h-2' : 'w-1 h-1'} rounded-full border border-zinc-800 duration-100 ease-in-out`}>
+        <div className={`${index === currentIndex ? 'w-2 h-2' : 'w-1 h-1'} rounded-full border border-zinc-700 duration-100 ease-in-out shadow-lg shadow-black`}>
             <div
                 className={`w-full h-full rounded-full duration-100 ease-in-out
             ${index === currentIndex ? 'bg-zinc-800 border border-zinc-200' : 'bg-transparent'}`}
