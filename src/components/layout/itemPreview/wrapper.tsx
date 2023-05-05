@@ -36,8 +36,11 @@ const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
 };
 
+interface Props {
+    children: React.ReactNode;
+}
 
-export default function ItemPreview() {
+export default function ItemPrevieWrapper({ children }: Props) {
     const [open, setOpen] = useAtom(ItemPreviewOpenAtom)
 
     return (
@@ -49,7 +52,7 @@ export default function ItemPreview() {
                     initial='hidden'
                     animate='animate'
                     exit='exit'
-                    className='pt-36 z-50 fixed backdrop-blur-sm w-screen h-screen bg-zinc-700/60 flex flex-center items-center justify-center'
+                    className='pt-32 z-50 fixed backdrop-blur-2xs w-screen h-screen bg-zinc-700/60 flex flex-center items-center justify-center'
                 >
                     <motion.div
                         variants={ModalVariants}
@@ -77,6 +80,7 @@ export default function ItemPreview() {
                         <div className='p-2 items-center justify-center flex w-full flex-col gap-2 '>
                             <div className='h-1.5 bg-zinc-400/70 w-28 rounded-lg' />
                         </div>
+                        {children}
                     </motion.div>
                 </motion.div>
             )}

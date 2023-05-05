@@ -20,6 +20,10 @@ module.exports = {
         },
         gray48: '#67768e',
       },
+      backdropBlur: {
+        xs: '2px',
+        "2xs": '1px',
+      }
     },
   },
   plugins: [],
