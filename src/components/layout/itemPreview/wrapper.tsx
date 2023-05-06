@@ -1,7 +1,8 @@
-import { ItemPreviewOpenAtom } from '@/context/appContext';
-import { AnimatePresence, motion } from 'framer-motion';
+import React from 'react'
 import { useAtom } from 'jotai';
-import React, { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion';
+import { ItemPreviewOpenAtom } from '@/context/appContext';
+import { XCircle } from 'lucide-react';
 
 const BackDropVariants = {
     hidden: {
@@ -30,12 +31,6 @@ const ModalVariants = {
     },
 }
 
-
-const swipeConfidenceThreshold = 1000;
-const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
-};
-
 interface Props {
     children: React.ReactNode;
 }
@@ -63,22 +58,17 @@ export default function ItemPrevieWrapper({ children }: Props) {
                             duration: 0.2,
 
                         }}
-                        drag="y"
-                        dragElastic={0.3}
-                        dragConstraints={{ top: 0, bottom: 50 }}
-                        onDragEnd={(e, { offset, velocity }) => {
-                            const swipe = swipePower(offset.y, velocity.y);
-                            if (swipe > swipeConfidenceThreshold) {
-                                setOpen(false);
-                            }
-                        }}
                         onClick={(e) => {
                             e.stopPropagation();
                         }}
                         className='w-full max-w-[840px] h-full rounded-t bg-white-100 pb-8 relative'
                     >
-                        <div className='p-2 items-center justify-center flex w-full flex-col gap-2 '>
-                            <div className='h-1.5 bg-zinc-400/70 w-28 rounded-lg' />
+                        <div className='p-2 items-end justify-center flex w-full flex-col gap-2 '>
+                            <XCircle
+                                strokeWidth={2}
+                                className='stroke-zinc-500'
+                                onClick={() => setOpen(false)}
+                            />
                         </div>
                         {children}
                     </motion.div>
