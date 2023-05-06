@@ -37,8 +37,8 @@ export function Card({ product: {
     }
 
     function handleCartIconClick() {
-        setPreviewProduct({ name, images, description, id, ...props })
         setItemPreviewOpen(true)
+        setPreviewProduct({ name, images, description, id, ...props })
     }
 
     return (

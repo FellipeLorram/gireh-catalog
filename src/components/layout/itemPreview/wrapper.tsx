@@ -1,8 +1,8 @@
 import React from 'react'
 import { useAtom } from 'jotai';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ItemPreviewOpenAtom } from '@/context/appContext';
 import { XCircle } from 'lucide-react';
+import { ItemPreviewOpenAtom } from '@/context/appContext';
 
 const BackDropVariants = {
     hidden: {
@@ -61,12 +61,13 @@ export default function ItemPrevieWrapper({ children }: Props) {
                         onClick={(e) => {
                             e.stopPropagation();
                         }}
-                        className='w-full max-w-[840px] h-full rounded-t bg-white-100 pb-8 relative'
+                        className='w-full max-w-[840px] h-full rounded-t bg-white-100 pb-2 relative'
                     >
                         <div className='p-2 items-end justify-center flex w-full flex-col gap-2 '>
                             <XCircle
                                 strokeWidth={2}
-                                className='stroke-zinc-500'
+                                size={20}
+                                className='stroke-zinc-400/70'
                                 onClick={() => setOpen(false)}
                             />
                         </div>
