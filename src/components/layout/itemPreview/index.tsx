@@ -13,7 +13,8 @@ export function ItemPreview() {
     <ItemPrevieWrapper>
       {product ? (
         <div className='w-full flex flex-col'>
-          <div className='grid items-start grid-rows-1 '>
+
+          <div className='p-2 overflow-y-auto flex flex-row gap-2 scrollbar-hide'>
             {product.images.map((image, index) => (
               <Image
                 key={index}
@@ -21,12 +22,13 @@ export function ItemPreview() {
                 width={3024}
                 height={3024}
                 src={image}
+                className='w-3/5 aspect-square'
               />
             ))}
           </div>
+
         </div >
       ) : (
-
         <div className='w-full h-full flex items-center justify-center'>
           <Loader2 strokeWidth={1} className='stroke-zinc-800 animate-spin ' />
         </div>
