@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FavoritesAndCartLayoutWrapper } from '../cartAndFavoritesWrapper'
 import { CartAtom, CartOpenAtom } from '@/context/appContext'
 import { useAtom } from 'jotai';
+import { CartItem } from './cartItem';
 
 const variants = {
   animate: {
@@ -16,6 +17,7 @@ const variants = {
 
 export function Cart() {
   const [cartItems] = useAtom(CartAtom);
+
   return (
     <FavoritesAndCartLayoutWrapper
       OpenAtom={CartOpenAtom}
@@ -27,7 +29,11 @@ export function Cart() {
         </div>
 
         {cartItems.length > 0 ? (
-          <></>
+          <div className='w-full flex flex-row gap-3 items-start justify-start'>
+            {cartItems.map((product) => (
+              <CartItem key={product.id} product={product} />
+            ))}
+          </div>
         ) : (
           <EmptyCart />
         )}

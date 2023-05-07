@@ -52,7 +52,10 @@ export function ItemPreview() {
                 width={3024}
                 height={3024}
                 src={image}
+                blurDataURL='/images/placeholder-card-image.png'
+                placeholder='blur'
                 className='w-3/5 aspect-square'
+                priority={index === 0}
               />
             ))}
           </div>

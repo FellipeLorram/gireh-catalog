@@ -2,7 +2,7 @@ import React from 'react'
 import { useAtom } from 'jotai';
 import { AnimatePresence, motion } from 'framer-motion';
 import { XCircle } from 'lucide-react';
-import { ItemPreviewOpenAtom } from '@/context/appContext';
+import { ItemPreviewOpenAtom, previewProduct } from '@/context/appContext';
 
 const BackDropVariants = {
     hidden: {
@@ -14,20 +14,20 @@ const BackDropVariants = {
     exit: {
         opacity: 0,
         transition: {
-            delay: 0.1,
+            delay: 0.2,
         }
     },
 }
 
 const ModalVariants = {
     hidden: {
-        y: 300,
+        y: 600,
     },
     animate: {
         y: 0,
     },
     exit: {
-        y: 300,
+        y: 600,
     },
 }
 
@@ -37,6 +37,12 @@ interface Props {
 
 export default function ItemPrevieWrapper({ children }: Props) {
     const [open, setOpen] = useAtom(ItemPreviewOpenAtom)
+    const [, setPreviewProduct] = useAtom(previewProduct);
+
+    function handleCloseIconClick() {
+        setPreviewProduct(null)
+        setOpen(false)
+    }
 
     return (
         <AnimatePresence>
@@ -68,7 +74,7 @@ export default function ItemPrevieWrapper({ children }: Props) {
                                 strokeWidth={2}
                                 size={20}
                                 className='stroke-zinc-400/70'
-                                onClick={() => setOpen(false)}
+                                onClick={handleCloseIconClick}
                             />
                         </div>
                         {children}
