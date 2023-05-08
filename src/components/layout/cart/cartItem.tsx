@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import Image from 'next/image';
-import { Heart } from 'lucide-react';
 import { Product } from '@/lib/entities/product'
+import { AnimatePresence, motion } from 'framer-motion';
+import { useAtom } from 'jotai';
+import { CartAtom } from '@/context/appContext';
 
 interface Props {
     product: Product;
@@ -15,7 +17,13 @@ export function CartItem({
         name,
         ...props
     } }: Props) {
-    const [isFavorite, setIsFavorite] = useState(true);
+    const [removeConfirm, setRemoveConfirm] = useState(false);
+    const [, setCartItems] = useAtom(CartAtom);
+
+    function handleRemoveConfirmClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        e.stopPropagation();
+        setCartItems((prev) => prev.filter((item) => item.id !== id));
+    }
 
     return (
         <div className='w-full flex flex-row gap-3 items-start justify-start'>
@@ -32,10 +40,29 @@ export function CartItem({
             <div className='flex flex-col flex-1 items-start justify-start gap-1 pr-1'>
                 <h1 className='text-md font-medium'>{name}</h1>
                 <p className='text-xs text-zinc-700'>Armação em {props.material}</p>
-                <p className='text-xs text-zinc-700'>{`${description.split(' ').slice(0, 10).join(' ')}...`}</p>
+                <p className='text-xs text-zinc-700'>{`${description.split(' ').slice(0, 8).join(' ')}...`}</p>
             </div>
-            <div className='flex flex-col gap-3'>
-        
+            <div className='flex flex-col gap-3 relative'>
+                <div onClick={() => setRemoveConfirm(prev => !prev)} className='p-1 border-zinc-800 rounded border flex flex-col gap-1'>
+                    <p className='text-xs text-zinc-800'>Remover</p>
+                    <AnimatePresence>
+                        {removeConfirm && (
+                            <div className='flex flex-row gap-2 text-center'>
+                                <button onClick={(e) => {
+                                    e.stopPropagation();
+                                    setRemoveConfirm(false)
+                                }}>
+                                    <p className='text-xs text-zinc-800'>Não</p>
+                                </button>
+                                <button
+                                    onClick={handleRemoveConfirmClick}
+                                >
+                                    <p className='text-xs text-zinc-500'>Sim</p>
+                                </button>
+                            </div>
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
         </div>
     )

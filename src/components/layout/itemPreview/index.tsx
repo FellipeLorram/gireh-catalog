@@ -11,13 +11,13 @@ export function ItemPreview() {
   const [favorites, setFavorites] = useAtom(FavoritesAtom);
   const [cartItems, setCartItems] = useAtom(CartAtom);
 
-  const isFavorite = favorites.findIndex((product) => product.id === product?.id) !== -1;
-  const isInCart = cartItems.findIndex((product) => product.id === product?.id) !== -1;
+  const isFavorite = favorites.findIndex((p) => p.id === product?.id) !== -1;
+  const isInCart = cartItems.findIndex((p) => p.id === product?.id) !== -1;
 
   function handleFavoritesIconClick() {
     setFavorites((prev) => {
       if (!product) return prev
-      const index = prev.findIndex((product) => product.id === product?.id);
+      const index = prev.findIndex((p) => p.id === product.id);
       if (index === -1) {
         return [...prev, product];
       } else {
@@ -29,7 +29,7 @@ export function ItemPreview() {
   function handleCartIconClick() {
     setCartItems((prev) => {
       if (!product) return prev
-      const index = prev.findIndex((product) => product.id === product?.id);
+      const index = prev.findIndex((p) => p.id === product.id);
       if (index === -1) {
         return [...prev, product];
       } else {

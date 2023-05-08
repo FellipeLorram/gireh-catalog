@@ -33,7 +33,7 @@ interface Props {
     images: string[];
 };
 
-export const ItemImages = memo(({ images }: Props) => {
+function ItemImagesMemo({ images }: Props) {
     const [[page, direction], setPage] = useState([0, 0]);
 
     const imageIndex = wrap(0, images.length, page);
@@ -91,4 +91,8 @@ export const ItemImages = memo(({ images }: Props) => {
             </AnimatePresence>
         </div>
     );
-})
+}
+
+ItemImagesMemo.displayName = 'ItemImages'
+
+export const ItemImages = memo(ItemImagesMemo);

@@ -23,13 +23,13 @@ export function Cart() {
       OpenAtom={CartOpenAtom}
     >
       <div className='flex w-full flex-col items-center justify-start h-full'>
-        <div className='flex w-full flex-row gap-2 items-center justify-start mt-8 pb-2 border-b border-zinc-200'>
+        <div className='flex w-full flex-row gap-2 items-center justify-start mt-8 pb-2 border-b border-zinc-200 mb-4'>
           <ShoppingBag strokeWidth={1} size={18} className='stroke-zinc-600' />
           <h1 className='text-zinc-600'>Carrinho</h1>
         </div>
 
         {cartItems.length > 0 ? (
-          <div className='w-full flex flex-row gap-3 items-start justify-start'>
+          <div className='w-full flex flex-col gap-4 items-center justify-center'>
             {cartItems.map((product) => (
               <CartItem key={product.id} product={product} />
             ))}
