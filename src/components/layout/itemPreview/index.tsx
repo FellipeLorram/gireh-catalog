@@ -3,9 +3,8 @@ import ItemPrevieWrapper from './wrapper'
 import { useAtom } from 'jotai'
 import { CartAtom, FavoritesAtom, previewProduct } from '@/context/appContext'
 import { Heart, Loader2 } from 'lucide-react'
-import Image from 'next/image'
 import { Button } from '@/components/buttons/button'
-import { Product } from '@/lib/entities/product'
+import { ItemImages } from './itemImages'
 
 export function ItemPreview() {
   const [product] = useAtom(previewProduct)
@@ -42,23 +41,9 @@ export function ItemPreview() {
   return (
     <ItemPrevieWrapper>
       {product ? (
-        <div className='w-full flex flex-col h-full pb-10 gap-1'>
+        <div className='w-full flex flex-col h-full pb-10 gap-2'>
 
-          <div className='px-2 pb-1 overflow-y-auto flex flex-row gap-2 scrollbar-hide scroll-smooth'>
-            {product.images.map((image, index) => (
-              <Image
-                key={index}
-                alt='product'
-                width={3024}
-                height={3024}
-                src={image}
-                blurDataURL='/images/placeholder-card-image.png'
-                placeholder='blur'
-                className='w-3/5 aspect-square'
-                priority={index === 0}
-              />
-            ))}
-          </div>
+          <ItemImages images={product.images} />
 
           <div className='w-full flex flex-col px-3 gap-2 flex-1'>
             <h1 className='text-zinc-800 text-lg font-medium'>{product.name}</h1>
@@ -93,6 +78,3 @@ export function ItemPreview() {
     </ItemPrevieWrapper >
   )
 }
-
-
-
