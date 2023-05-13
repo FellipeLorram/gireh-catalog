@@ -10,11 +10,11 @@ import Link from 'next/link';
 const variants = {
     hidden: {
         opacity: 0,
-        y: 100,
+        x: 100,
     },
     animate: {
         opacity: 1,
-        y: 0,
+        x: 0,
     },
 };
 

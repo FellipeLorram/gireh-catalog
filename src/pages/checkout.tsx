@@ -10,15 +10,16 @@ import { database } from '@/lib/firebase';
 import CheckoutScreenAnimate from '@/components/svg/CheckoutScreenAnimate';
 import { useAtom } from 'jotai';
 import { CartAtom, FavoritesAtom } from '@/context/appContext';
+import { useRouter } from 'next/router';
 
 const variants = {
   hidden: {
     opacity: 0,
-    y: 100,
+    x: 100,
   },
   animate: {
     opacity: 1,
-    y: 0,
+    x: 0,
   },
 };
 
@@ -26,6 +27,7 @@ export default function Chekckout() {
   const [loading, setLoading] = useState(false);
   const [cartItems] = useAtom(CartAtom);
   const [favoritesItems] = useAtom(FavoritesAtom);
+  const {push} = useRouter();
 
   async function handleSubmit(data: CheckoutFormFields) {
     setLoading(true);
@@ -36,6 +38,7 @@ export default function Chekckout() {
       favorites: favoritesItems.map((item) => item.id),
     });
     setLoading(false);
+    push('/checkout-confirm');
   }
 
   return (
