@@ -20,3 +20,31 @@ option {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.rotate-animation {
+  animation: rotate 3s infinite alternate;
+}
+
+.move-animation {
+  animation: move 2s infinite alternate;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(1deg);
+  }
+
+  100% {
+    transform: rotate(-1deg);
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(-10px);
+  }
+
+  100% {
+    transform: translateX(10px);
+  }
+}

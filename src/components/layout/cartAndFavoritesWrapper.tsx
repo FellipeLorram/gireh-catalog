@@ -51,7 +51,7 @@ export function FavoritesAndCartLayoutWrapper({ children, OpenAtom }: Props) {
                     initial='hidden'
                     animate='animate'
                     exit='exit'
-                    className='pt-2 z-50 fixed backdrop-blur-sm w-screen h-screen bg-zinc-700/60 flex flex-center items-center justify-center'
+                    className='pt-2 z-40 fixed backdrop-blur-sm w-screen h-screen bg-zinc-700/60 flex flex-center items-center justify-center'
                 >
                     <motion.div
                         variants={ModalVariants}
