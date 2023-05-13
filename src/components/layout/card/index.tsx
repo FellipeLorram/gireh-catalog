@@ -5,6 +5,7 @@ import { CartAtom, FavoritesAtom, ItemPreviewOpenAtom, previewProduct } from '@/
 import { useAtom, } from 'jotai';
 import { CartPlus } from '@/components/icons/cartPlus';
 import { CardImages } from './cardImages';
+import Image from 'next/image';
 
 interface CardProps {
     product: Product;
@@ -43,10 +44,22 @@ export function Card({ product: {
 
     return (
         <div className='w-full flex flex-col items-start overflow-hidden gap-1'>
-            <CardImages images={[
-                { src: images[0], alt: description },
-                { src: images[1], alt: description },
-            ]} />
+            {images.length > 1 ? (
+                <CardImages images={[
+                    { src: images[0], alt: description },
+                    { src: images[1], alt: description },
+                ]} />
+            ) : (
+                <Image
+                    src={images[0]}
+                    alt={description}
+                    width={3024}
+                    height={3024}
+                    priority
+                    blurDataURL='/images/placeholder-card-image.png'
+                    placeholder='blur'
+                />
+            )}
 
             <div className='w-full flex justify-between items-center gap-2'>
                 <h2 className='text-sm flex-1'>
