@@ -17,8 +17,10 @@ option {
 
 /* For IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .rotate-animation {
@@ -47,4 +49,13 @@ option {
   100% {
     transform: translateX(10px);
   }
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+
+* {
+  scrollbar-width: none;
 }

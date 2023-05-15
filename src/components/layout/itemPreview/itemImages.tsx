@@ -55,7 +55,7 @@ function ItemImagesMemo({ images }: Props) {
                     key="chevron-left"
                 />
                 <motion.img
-                    className='absolute w-full h-full object-contain'
+                    className='absolute w-10/12 h-full object-contain'
                     key={500 + imageIndex}
                     src={images[imageIndex]}
                     custom={direction}

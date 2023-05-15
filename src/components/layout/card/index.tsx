@@ -6,6 +6,7 @@ import { useAtom, } from 'jotai';
 import { CartPlus } from '@/components/icons/cartPlus';
 import { CardImages } from './cardImages';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 interface CardProps {
     product: Product;
@@ -22,9 +23,14 @@ export function Card({ product: {
     const [, setPreviewProduct] = useAtom(previewProduct)
     const [favorites, setFavorites] = useAtom(FavoritesAtom);
     const [cartItems] = useAtom(CartAtom);
+    const {push} = useRouter()
 
     const isFavorite = favorites.findIndex((product) => product.id === id) !== -1;
     const isInCart = cartItems.findIndex((product) => product.id === id) !== -1;
+
+    function handleCardClick() {
+        push(`/product/${id}`)
+    }
 
     function handleFavoritesIconClick() {
         setFavorites((prev) => {
@@ -37,13 +43,14 @@ export function Card({ product: {
         })
     }
 
-    function handleCartIconClick() {
+    function handleCartIconClick(e: React.MouseEvent<SVGSVGElement, MouseEvent>) {
+        e.stopPropagation();
         setItemPreviewOpen(true)
         setPreviewProduct({ name, images, description, id, ...props })
     }
 
     return (
-        <div className='w-full flex flex-col items-start overflow-hidden gap-1'>
+        <div onClick={handleCardClick} className='w-full flex flex-col items-start overflow-hidden gap-1'>
             {images.length > 1 ? (
                 <CardImages images={[
                     { src: images[0], alt: description },
@@ -79,7 +86,7 @@ export function Card({ product: {
                     {isInCart && <div className='h-2 w-2 rounded-full bg-red-500 right-0 top-0 absolute z-0'></div>}
                     <CartPlus
                         className='stroke-zinc-900 z-10'
-                        onClick={handleCartIconClick}
+                        onClick={e => handleCartIconClick(e)}
                     />
                 </div>
             </div>
