@@ -65,7 +65,7 @@ export default function Product() {
             >
 
                 <div className='p-2 fixed top-0 left-0 z-50'>
-                    <Link href='/'>
+                    <Link href='/catalog'>
                         <ArrowLeftCircle
                             size={24}
                             className='stroke-zinc-950'

@@ -32,7 +32,9 @@ export function Card({ product: {
         push(`/product/${id}`)
     }
 
-    function handleFavoritesIconClick() {
+    function handleFavoritesIconClick(e: React.MouseEvent<SVGSVGElement, MouseEvent>) {
+        e.stopPropagation();
+
         setFavorites((prev) => {
             const index = prev.findIndex((product) => product.id === id);
             if (index === -1) {
@@ -73,7 +75,7 @@ export function Card({ product: {
                     {name}
                 </h2>
                 <Heart
-                    onClick={handleFavoritesIconClick}
+                    onClick={e => handleFavoritesIconClick(e)}
                     fill={`${isFavorite ? '#b91c1c' : '#FFF'}`}
                     className={`
                     duration-200 ease-in-out

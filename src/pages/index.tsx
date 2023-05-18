@@ -1,101 +1,143 @@
-import { useEffect } from 'react'
-import { useAtom } from 'jotai'
-import { collection, getDocs, query } from 'firebase/firestore'
+import React, { ReactNode, useEffect, useState } from 'react'
+import { ChevronRight } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 
-import { CheckoutButton } from '@/components/buttons/checkoutButton'
-import { CardGrid } from '@/components/layout/cardGrid'
-import { Cart } from '@/components/layout/cart'
-import { Favorites } from '@/components/layout/favorites'
-import { ItemPreview } from '@/components/layout/itemPreview'
-import { Wrapper } from '@/components/layout/wrapper'
-import { Navbar } from '@/components/navigation/navbar'
-import { ProductsAtom, ProductsCategory, userLocationAtom } from '@/context/appContext'
-import { Product } from '@/lib/entities/product'
-import { database } from '@/lib/firebase'
+import { Button } from '@/components/buttons/button'
+import Link from 'next/link'
+import { TecnicalWorkers } from '@/components/svg/TecnicalWorkers'
+import { PriceFriendly } from '@/components/svg/PriceFriendly'
+import { TenYears } from '@/components/svg/TenYears'
 
-interface Props {
-  products: ProductsCategory
+const variants = {
+  hidden: {
+    opacity: 1,
+  },
+  animate: {
+    opacity: 1,
+  },
+  exit: {
+    x: '-100vw',
+    transition: {
+      delay: 0.2,
+    }
+  },
 }
 
-export async function getServerSideProps() {
-  const q = query(collection(database, "products"));
-  const femProducts: Product[] = [];
-  const mascProducts: Product[] = [];
-  const childProducts: Product[] = [];
-  const allProducts: Product[] = [];
+export default function IndexScreen() {
+  const [currentText, setCurrentText] = useState(0);
 
-  const querySnapshot = await getDocs(q);
-
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    allProducts.push({ ...data as Product, id: doc.id });
-    switch (data.category) {
-      case 'fem':
-        femProducts.push({ ...data as Product, id: doc.id });
-        break;
-      case 'masc':
-        mascProducts.push({ ...data as Product, id: doc.id });
-        break;
-      case 'child':
-        childProducts.push({ ...data as Product, id: doc.id });
-        break;
-      default:
-        break;
-    }
-  });
-
-  return {
-    props: {
-      products: {
-        all: allProducts,
-        masc: mascProducts,
-        fem: femProducts,
-        child: childProducts,
-      },
-    }
-  }
-}
-
-export default function Home({ products }: Props) {
-  const [, setProductsAtom] = useAtom(ProductsAtom);
-  const [userLocation] = useAtom(userLocationAtom);
+  const texts = [
+    'Com mais de 10 anos de experiência, oferecemos atendimento técnico em ótica e soluções personalizadas para cuidar da sua visão.',
+    'Nossos especialistas em ótica estão prontos para te ajudar a encontrar os óculos perfeitos. Conte com nosso atendimento amigável e personalizado!',
+    'Praticamos preços justos e oferecemos óculos de qualidade. Garantimos soluções visuais que se encaixam no seu orçamento.',
+  ];
 
   useEffect(() => {
-    setProductsAtom(products);
-  }, [products]);
-  
+    const interval = setInterval(() => {
+      setCurrentText((prev) => {
+        if (prev === texts.length - 1) {
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    }
+  }, []);
+
+
   return (
-    <>
-      <Favorites />
-      <Cart />
-      <CheckoutButton />
-      <ItemPreview />
+    <AnimatePresence mode='wait'>
+      <motion.div
+        variants={variants}
+        initial='hidden'
+        animate='animate'
+        exit='exit'
+        className='w-full h-screen flex flex-col items-center justify-center fixed bg-white-100 top-0 left-0 z-50 p-4'
+      >
 
-      <Wrapper>
-        <Navbar />
-        {
-          userLocation === 'Tudo' && (
-            <CardGrid products={products.all} />
-          )
-        }
-        {
-          userLocation === 'Feminino' && (
-            <CardGrid products={products.fem} />
-          )
-        }
-        {
-          userLocation === 'Masculino' && (
-            <CardGrid products={products.masc} />
-          )
-        }
-        {
-          userLocation === 'Infantil' && (
-            <CardGrid products={products.child} />
-          )
-        }
+        <div className='flex w-full flex-1 justify-center items-center text-center'>
+          <Text
+            SVG={<TenYears className='w-full aspect-square' />}
+            text={texts[currentText]}
+            current={currentText === 0}
+          />
+          <Text
+            SVG={<TecnicalWorkers className='w-full aspect-square' />}
+            text={texts[currentText]}
+            current={currentText === 1}
+          />
+          <Text
+            SVG={<PriceFriendly className='w-full aspect-square' />}
+            text={texts[currentText]}
+            current={currentText === 2}
+          />
+        </div>
 
-        {/* <CardGrid products={MockProductsData} /> */}
-      </Wrapper>
-    </>
-  );
+        <div className='w-full flex flex-col gap-2 items-center justify-center'>
+
+          <Link className='w-full' href='/catalog'>
+            <Button
+              variant='secondary'
+              className='w-full justify-between py-4'
+            >
+              Catálogo
+              <ChevronRight
+                size={24}
+                className='stroke-zinc-950'
+                strokeWidth={2}
+              />
+            </Button>
+          </Link>
+
+          {/* <Link href='/catalog'>
+            <button className='flex flex-row justify-center gap-1 items-center border-b border-zinc-300 pb-0.5'>
+              <p className='text-sm text-zinc-700'>
+                Continuar sem conta
+              </p>
+              <ArrowRightCircle
+                size={18}
+                className='stroke-zinc-500'
+                strokeWidth={2}
+              />
+            </button>
+          </Link> */}
+        </div>
+
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
+interface TextsProps {
+  text: string;
+  current: boolean;
+  SVG: ReactNode;
+}
+
+function Text({ text, current, SVG }: TextsProps) {
+  return (
+    <AnimatePresence
+      mode='popLayout'
+    >
+      {current && (
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className='flex flex-col items-center justify-between w-full p-4'
+        >
+          {SVG}
+          <p
+            className='text-zinc-900 text-lg font-jakarta'
+          >
+            {text}
+          </p>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
 }

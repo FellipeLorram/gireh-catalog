@@ -51,7 +51,7 @@ export default function Chekckout() {
         className='w-full items-center justify-start flex flex-col p-4 text-center h-screen gap-4'
       >
         <div className='flex flex-row w-full items-center justify-center'>
-          <Link href='/'>
+          <Link href='/catalog'>
             <ArrowLeftCircle
               size={24}
               className='stroke-zinc-900'

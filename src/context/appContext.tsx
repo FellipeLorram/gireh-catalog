@@ -13,7 +13,7 @@ export const FavoritesAtom = atom<Product[]>([]);
 export const ItemPreviewOpenAtom = atom<boolean>(false);
 export const previewProduct = atom<Product | null>(null);
 
-export const IndexScreenAtom = atom<boolean>(true);
+export const PromotionalScreenAtom = atom<boolean>(true);
 
 export interface ProductsCategory {
     all: Product[];
