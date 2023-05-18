@@ -25,6 +25,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const localCartItems = getDataFromLocalStorage('cartItems') as Product[];
     const localFavoritesItems = getDataFromLocalStorage('favoritesItems') as Product[];
+    
+    if(!localCartItems) saveDataToLocalStorage('cartItems', []);
+    if(!localFavoritesItems) saveDataToLocalStorage('favoritesItems', []);
 
     if (localCartItems.length > 0) {
       setCartItems(localCartItems);
