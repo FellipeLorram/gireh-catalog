@@ -57,7 +57,12 @@ export default function IndexScreen() {
         exit='exit'
         className='w-full h-screen flex flex-col items-center justify-center fixed bg-white-100 top-0 left-0 z-50 p-4'
       >
-
+        <div className='flex flex-col w-full items-center justify-center leading-tight'>
+          <h1 className='text-zinc-900 text-4xl'>
+            Girêh
+          </h1>
+          <p className='text-xs font-jakart tracking-[.25em] '>EYEWEAR</p>
+        </div>
         <div className='flex w-full flex-1 justify-center items-center text-center'>
           <Text
             SVG={<TenYears className='w-full aspect-square' />}
