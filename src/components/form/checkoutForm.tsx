@@ -8,6 +8,7 @@ import { z } from 'zod';
 const checkoutFormSchema = z.object({
     name: z.string().min(3, 'Nome inválido'),
     phone: z.string().min(11, 'Telefone inválido'),
+    email: z.string().email('E-mail inválido'),
 });
 
 export type CheckoutFormFields = z.infer<typeof checkoutFormSchema>;
@@ -35,6 +36,16 @@ export default function CheckoutForm({ onSubmit, loading }: Props) {
                     placeholder='Seu nome'
                     type='text'
                     error={errors.name?.message}
+                />
+                <Input.Error message={errors.name?.message} />
+            </Input.Wrapper>
+            <Input.Wrapper>
+                <Input.Label label='Email' />
+                <Input.Input
+                    {...register('email')}
+                    placeholder='seu@email.com.br'
+                    type='email'
+                    error={errors.email?.message}
                 />
                 <Input.Error message={errors.name?.message} />
             </Input.Wrapper>

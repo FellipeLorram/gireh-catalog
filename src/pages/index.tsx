@@ -61,7 +61,7 @@ export default function IndexScreen() {
           <h1 className='text-zinc-900 text-4xl'>
             Girêh
           </h1>
-          <p className='text-xs font-jakart tracking-[.25em] '>EYEWEAR</p>
+          <p className='text-xs font-jakart tracking-[.25em] text-center'>EYEWEAR</p>
         </div>
         <div className='flex w-full flex-1 justify-center items-center text-center'>
           <Text
