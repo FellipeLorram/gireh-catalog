@@ -15,11 +15,11 @@ import { useRouter } from 'next/router';
 const variants = {
   hidden: {
     opacity: 0,
-    x: 100,
+    y: 100,
   },
   animate: {
     opacity: 1,
-    x: 0,
+    y: 0,
   },
 };
 
@@ -36,6 +36,7 @@ export default function Chekckout() {
       phone: data.phone,
       cart: cartItems.map((item) => item.id),
       favorites: favoritesItems.map((item) => item.id),
+      createdAt: new Date().getMilliseconds(),
     });
     setLoading(false);
     push('/checkout-confirm');
