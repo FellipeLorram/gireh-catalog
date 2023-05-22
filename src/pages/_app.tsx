@@ -29,7 +29,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     if(!localCartItems) saveDataToLocalStorage('cartItems', []);
     if(!localFavoritesItems) saveDataToLocalStorage('favoritesItems', []);
 
-    return
 
     if (localCartItems.length > 0) {
       setCartItems(localCartItems);
