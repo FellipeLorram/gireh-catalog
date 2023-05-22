@@ -39,7 +39,7 @@ export default function CheckoutConfirm() {
                         Em breve entraremos em contato.
                     </p>
                 </div>
-                <Link className='w-full' href='/'>
+                <Link className='w-full' href='/catalog'>
                     <Button variant='secondary' className='w-full justify-between py-4'>
                         Catalogo
                         <ChevronRight

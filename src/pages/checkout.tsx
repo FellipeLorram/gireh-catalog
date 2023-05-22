@@ -34,6 +34,7 @@ export default function Chekckout() {
     await addDoc(collection(database, 'leads'), {
       name: data.name,
       phone: data.phone,
+      email: data.email,
       cart: cartItems.map((item) => item.id),
       favorites: favoritesItems.map((item) => item.id),
       createdAt: new Date().getMilliseconds(),
