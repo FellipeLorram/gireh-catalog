@@ -35,8 +35,8 @@ export default function Chekckout() {
       name: data.name,
       phone: data.phone,
       email: data.email,
-      cart: cartItems.map((item) => item.id),
-      favorites: favoritesItems.map((item) => item.id),
+      cart: cartItems,
+      favorites: favoritesItems,
       createdAt: new Date().getMilliseconds(),
     });
     setLoading(false);
