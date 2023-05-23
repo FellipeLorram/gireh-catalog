@@ -38,6 +38,7 @@ export default function Chekckout() {
       cart: cartItems,
       favorites: favoritesItems,
       createdAt: new Date().getMilliseconds(),
+      read: false,
     });
     setLoading(false);
     push('/checkout-confirm');
