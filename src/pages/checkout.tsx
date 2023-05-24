@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Link from 'next/link';
 import { ArrowLeftCircle } from 'lucide-react';
 import { motion } from 'framer-motion'
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, where } from 'firebase/firestore';
 
 import CheckoutForm, { CheckoutFormFields } from '@/components/form/checkoutForm';
 import { Wrapper } from '@/components/layout/wrapper';
@@ -27,7 +27,7 @@ export default function Chekckout() {
   const [loading, setLoading] = useState(false);
   const [cartItems] = useAtom(CartAtom);
   const [favoritesItems] = useAtom(FavoritesAtom);
-  const {push} = useRouter();
+  const { push } = useRouter();
 
   async function handleSubmit(data: CheckoutFormFields) {
     setLoading(true);

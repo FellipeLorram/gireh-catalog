@@ -63,7 +63,7 @@ export function LoginForm() {
                 Entrar
             </Button>
 
-            <div className='w-full flex flex-rol gap-2 items-center justify-center'>
+            <div className='w-full flex flex-rol gap-2 items-center justify-center text-zinc-400'>
                 <div
                     className='w-full h-[1px] bg-zinc-400'
                 />
