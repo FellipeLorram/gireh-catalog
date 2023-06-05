@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, database } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { IUser } from "@/lib/entities/user";
+import { User } from "@/lib/entities/user";
 
 
 export function useUserData(): {
-    user: IUser | null;
+    user: User | null;
     loading: boolean;
 } {
-    const [currentUser, setCurrentUser] = useState<IUser | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [fbUser, loading] = useAuthState(auth);
 
     useEffect(() => {
@@ -26,7 +26,14 @@ export function useUserData(): {
                         name: data.name,
                         role: data.role,
                         store: data.store,
-                    } as IUser);
+                        cart: data.cart,
+                        orders: data.orders,
+                        createdAt: data.createdAt,
+                        updatedAt: data.updatedAt,
+                        favorites: data.favorites,
+                        password: data.password,
+                        phone: data.phone,
+                    } as User);
                 }
             } 
         }
