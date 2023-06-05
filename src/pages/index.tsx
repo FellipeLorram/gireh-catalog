@@ -65,7 +65,7 @@ export default function IndexScreen() {
         </div>
         <div className='flex w-full flex-1 justify-center items-center text-center'>
           <Text
-            SVG={<TenYears className='w-full aspect-square' />}
+            SVG={<TenYears className='w-full aspect-square max-w-[640px]' />}
             text={texts[currentText]}
             current={currentText === 0}
           />

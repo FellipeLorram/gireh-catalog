@@ -1,7 +1,13 @@
-export interface IUser {
+import { Product } from "./product";
+
+export interface User {
     id: string;
     name: string;
     email: string;
-    store: string;
-    role: 'admin' | 'user';
+    phone: string;
+    password: string;
+    createdAt: number;
+    updatedAt: number;
+    cart: Product[];
+    favorites: Product[];
 };

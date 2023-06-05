@@ -18,51 +18,50 @@ interface Props {
 }
 
 export async function getServerSideProps() {
-  const q = query(collection(database, "products"));
-  const femProducts: Product[] = [];
-  const mascProducts: Product[] = [];
-  const childProducts: Product[] = [];
-  const allProducts: Product[] = [];
-
-  const querySnapshot = await getDocs(q);
-
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    allProducts.push({ ...data as Product, id: doc.id });
-    switch (data.category) {
-      case 'fem':
-        femProducts.push({ ...data as Product, id: doc.id });
-        break;
-      case 'masc':
-        mascProducts.push({ ...data as Product, id: doc.id });
-        break;
-      case 'child':
-        childProducts.push({ ...data as Product, id: doc.id });
-        break;
-      default:
-        break;
-    }
-  });
-
-  return {
-    props: {
-      products: {
-        all: allProducts,
-        masc: mascProducts,
-        fem: femProducts,
-        child: childProducts,
-      },
-    }
-  }
 }
 
-export default function Home({ products }: Props) {
-  const [, setProductsAtom] = useAtom(ProductsAtom);
+export default function Home() {
+  const [productsAtom, setProductsAtom] = useAtom(ProductsAtom);
   const [userLocation] = useAtom(userLocationAtom);
 
   useEffect(() => {
-    setProductsAtom(products);
-  }, [products]);
+    (async () => {
+      const q = query(collection(database, "products"));
+      const femProducts: Product[] = [];
+      const mascProducts: Product[] = [];
+      const childProducts: Product[] = [];
+      const allProducts: Product[] = [];
+
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        allProducts.push({ ...data as Product, id: doc.id });
+        switch (data.category) {
+          case 'fem':
+            femProducts.push({ ...data as Product, id: doc.id });
+            break;
+          case 'masc':
+            mascProducts.push({ ...data as Product, id: doc.id });
+            break;
+          case 'child':
+            childProducts.push({ ...data as Product, id: doc.id });
+            break;
+          default:
+            break;
+        }
+      });
+
+      const products: ProductsCategory = {
+        all: allProducts,
+        fem: femProducts,
+        masc: mascProducts,
+        child: childProducts,
+      };
+
+      setProductsAtom(products);
+    })();
+  }, []);
 
   return (
     <>
@@ -70,27 +69,27 @@ export default function Home({ products }: Props) {
       <Cart />
       <CheckoutButton />
       <ItemPreview />
-      
+
       <Wrapper>
         <Navbar />
         {
           userLocation === 'Tudo' && (
-            <CardGrid products={products.all} />
+            <CardGrid products={productsAtom.all} />
           )
         }
         {
           userLocation === 'Feminino' && (
-            <CardGrid products={products.fem} />
+            <CardGrid products={productsAtom.fem} />
           )
         }
         {
           userLocation === 'Masculino' && (
-            <CardGrid products={products.masc} />
+            <CardGrid products={productsAtom.masc} />
           )
         }
         {
           userLocation === 'Infantil' && (
-            <CardGrid products={products.child} />
+            <CardGrid products={productsAtom.child} />
           )
         }
 
