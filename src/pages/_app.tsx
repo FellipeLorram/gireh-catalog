@@ -25,9 +25,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const localCartItems = getDataFromLocalStorage('cartItems') as Product[];
     const localFavoritesItems = getDataFromLocalStorage('favoritesItems') as Product[];
-    
-    if(!localCartItems) saveDataToLocalStorage('cartItems', []);
-    if(!localFavoritesItems) saveDataToLocalStorage('favoritesItems', []);
+
+    if (!localCartItems) {
+      saveDataToLocalStorage('cartItems', []);
+      return
+    npm}
+    if (!localFavoritesItems) {
+      saveDataToLocalStorage('favoritesItems', []);
+      return
+    npm}
 
 
     if (localCartItems.length > 0) {
@@ -39,7 +45,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     }
 
   }, []);
-  
+
   useEffect(() => {
     saveDataToLocalStorage('cartItems', cartItems);
     saveDataToLocalStorage('favoritesItems', favoritesItems);

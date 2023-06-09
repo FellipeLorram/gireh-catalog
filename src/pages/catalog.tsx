@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
-import { collection, getDocs, query } from 'firebase/firestore'
+import { collection, getDocs, limit, query } from 'firebase/firestore'
 
 import { CheckoutButton } from '@/components/buttons/checkoutButton'
 import { CardGrid } from '@/components/layout/cardGrid'
@@ -13,20 +13,13 @@ import { ProductsAtom, ProductsCategory, userLocationAtom } from '@/context/appC
 import { Product } from '@/lib/entities/product'
 import { database } from '@/lib/firebase'
 
-interface Props {
-  products: ProductsCategory
-}
-
-export async function getServerSideProps() {
-}
-
 export default function Home() {
   const [productsAtom, setProductsAtom] = useAtom(ProductsAtom);
   const [userLocation] = useAtom(userLocationAtom);
 
   useEffect(() => {
     (async () => {
-      const q = query(collection(database, "products"));
+      const q = query(collection(database, "products"), limit(10));
       const femProducts: Product[] = [];
       const mascProducts: Product[] = [];
       const childProducts: Product[] = [];
@@ -35,6 +28,7 @@ export default function Home() {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
+        if(!doc.exists()) return;
         const data = doc.data();
         allProducts.push({ ...data as Product, id: doc.id });
         switch (data.category) {

@@ -55,7 +55,7 @@ export default function IndexScreen() {
         initial='hidden'
         animate='animate'
         exit='exit'
-        className='w-full h-screen flex flex-col items-center justify-center fixed bg-white-100 top-0 left-0 z-50 p-4'
+        className='w-full h-screen flex flex-col items-center justify-between fixed bg-white-100 top-0 left-0 z-50 p-4'
       >
         <div className='flex flex-col w-full items-center justify-center leading-tight'>
           <h1 className='text-zinc-900 text-4xl'>
@@ -63,27 +63,10 @@ export default function IndexScreen() {
           </h1>
           <p className='text-xs font-jakart tracking-[.25em] text-center'>EYEWEAR</p>
         </div>
-        <div className='flex w-full flex-1 justify-center items-center text-center'>
-          <Text
-            SVG={<TenYears className='w-full aspect-square max-w-[640px]' />}
-            text={texts[currentText]}
-            current={currentText === 0}
-          />
-          <Text
-            SVG={<TecnicalWorkers className='w-full aspect-square' />}
-            text={texts[currentText]}
-            current={currentText === 1}
-          />
-          <Text
-            SVG={<PriceFriendly className='w-full aspect-square' />}
-            text={texts[currentText]}
-            current={currentText === 2}
-          />
-        </div>
 
         <div className='w-full flex flex-col gap-2 items-center justify-center'>
 
-          <Link className='w-full' href='/catalog'>
+          <Link className='w-full max-w-[620px]' href='/catalog'>
             <Button
               variant='secondary'
               className='w-full justify-between py-4'
