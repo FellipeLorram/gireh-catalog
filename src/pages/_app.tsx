@@ -29,11 +29,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     if (!localCartItems) {
       saveDataToLocalStorage('cartItems', []);
       return
-    npm}
+    }
     if (!localFavoritesItems) {
       saveDataToLocalStorage('favoritesItems', []);
       return
-    npm}
+    }
 
 
     if (localCartItems.length > 0) {
