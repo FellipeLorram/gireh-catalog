@@ -64,7 +64,7 @@ export default function Chekckout() {
           <p className='font-jakarta text-xl flex-1 text-center'>Finalizar Atendimento</p>
         </div>
 
-        <div className='w-full flex flex-col gap-4 h-full items-center justify-start'>
+        <div className='w-full flex flex-col gap-4 h-full items-center justify-start mb-8'>
           <CheckoutScreenAnimate
             className='w-1/2'
           />

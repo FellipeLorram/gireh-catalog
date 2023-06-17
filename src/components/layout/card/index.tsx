@@ -23,7 +23,7 @@ export function Card({ product: {
     const [, setPreviewProduct] = useAtom(previewProduct)
     const [favorites, setFavorites] = useAtom(FavoritesAtom);
     const [cartItems] = useAtom(CartAtom);
-    const {push} = useRouter()
+    const { push } = useRouter()
 
     const isFavorite = favorites.findIndex((product) => product.id === id) !== -1;
     const isInCart = cartItems.findIndex((product) => product.id === id) !== -1;
@@ -54,10 +54,13 @@ export function Card({ product: {
     return (
         <div onClick={handleCardClick} className='w-full flex flex-col items-start overflow-hidden gap-1'>
             {images.length > 1 ? (
-                <CardImages images={[
-                    { src: images[0], alt: description },
-                    { src: images[1], alt: description },
-                ]} />
+                <CardImages
+                    productId={id}
+                    images={[
+                        { src: images[0], alt: description },
+                        { src: images[1], alt: description },
+                    ]}
+                />
             ) : (
                 <Image
                     src={images[0]}

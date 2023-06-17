@@ -75,7 +75,7 @@ export default function Product() {
                 </div>
 
 
-                <div className='w-full h-80 '>
+                <div className='w-full h-80 overflow-hidden'>
                     <ItemImages
                         images={product.images}
                     />
@@ -85,7 +85,6 @@ export default function Product() {
                     <p>
                         {product.description}
                     </p>
-
                 </div>
             </motion.div>
             <div className='fixed bottom-0 left-0 w-full pb-2 bg-white-100'>
